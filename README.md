@@ -54,7 +54,6 @@ pnpm build
 ### [1. 文件路由](https://github.com/hannoeru/vite-plugin-pages)
 
 -   `src/pages/index.vue` => `/`（ 默认 index.vue 为路由根目录）
--   `src/pages/about.md` => `/about` 持 md 文件渲染显示)
 -   `src/pages/users/index.vue` => `/users` （文件夹为上级目录)
 -   `src/pages/users/[id].vue` => `/users/:id`（页面 prams 传参)
 -   `src/pages/[user]/settings.vue` => `/:user/settings`（动态路由）
