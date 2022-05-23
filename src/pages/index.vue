@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import toast from "~/plugin/toast/index";
-const toastFun = () => {
-    toast.message("success!!!");
-};
+import http from "~/api";
+onMounted(() => {
+    http.login({ id: 1 });
+});
 </script>
 
-<template>
-    <a-button @click="toastFun">toast</a-button>
-</template>
+<template></template>
 
 <route lang="yaml">
 { meta: { layout: "default" } }
