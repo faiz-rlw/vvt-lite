@@ -94,7 +94,7 @@ interface dataConfig {
     [name: string]: any;
 }
 
-type optionsDto = {
+type fetchOptionsDto = {
     reqUrl: string; // 请求地址
     data: dataConfig; // 请求数据
     contentType?: string; // HTTP内容类型; 默认json
@@ -104,7 +104,7 @@ type optionsDto = {
 
 /**
  * @description: 封装请求
- * @param { optionsDto } options
+ * @param { fetchOptionsDto } options
  * reqUrl : 请求地址 |
  * data : 请求数据 |
  * contentType : HTTP内容类型 |
@@ -112,7 +112,7 @@ type optionsDto = {
  * isHaveToken: 是否需要在请求头加token |
  * @returns axios
  */
-export function fetchEndpoint(options: optionsDto) {
+export function fetchEndpoint(options: fetchOptionsDto) {
     const {
         reqUrl,
         data,
@@ -122,21 +122,25 @@ export function fetchEndpoint(options: optionsDto) {
     } = options;
 
     let urlArr = reqUrl.split("/:");
-    let url = `${urlArr[0]}${urlArr.length > 1 ? "/" + data[urlArr[1]] : ""}`;
+    let url =
+        API_HOST +
+        `${urlArr[0]}${urlArr.length > 1 ? "/" + data[urlArr[1]] : ""}`;
 
     reqHeaderOtherConfig.isHaveToken = isHaveToken;
     reqHeaderOtherConfig.requestContentType = setContentType(
         contentType.toLowerCase()
     );
 
-    let reqData = {
+    let reqData: dataConfig = {
         method: reqTypes.includes(type.toUpperCase())
             ? type.toUpperCase()
             : "POST",
         url,
-        data: urlArr.length > 1 ? {} : contentType ? data : {},
-        params: urlArr.length > 1 ? {} : contentType ? {} : data,
+        data: urlArr.length > 1 ? {} : data,
+        params: urlArr.length > 1 ? {} : data,
     };
+
+    delete reqData[contentType === "json" ? "params" : "data"];
     return service({
         ...reqData,
     });
@@ -171,16 +175,10 @@ export function tansParams(params: any): string {
     return result;
 }
 
-export function downloadFile(url: string, params: object, filename: string) {
-    service(url, params)
-        .then((res) => {
-            const { data } = res.data;
-            let name = filename ? filename : new Date().getTime().toString();
-            download(data, name);
-        })
-        .catch((res) => {
-            console.log(res);
-        });
+export async function downloadFile(options: fetchOptionsDto) {
+    const res = await fetchEndpoint(options);
+    const { fileName = new Date().getTime() } = options.data;
+    download(res.data, fileName);
 }
 
 function download(content: any, fileName: string) {

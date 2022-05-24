@@ -11,10 +11,10 @@ import { fetchEndpoint } from "~/utils/request";
 export default {
     login: (data: object) =>
         fetchEndpoint({
-            reqUrl: "/login/:id",
+            reqUrl: "/login",
             data,
             type: "POST",
-            contentType: "form",
+            contentType: "json",
             isHaveToken: false,
         }),
 };
