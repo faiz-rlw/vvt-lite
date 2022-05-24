@@ -49,13 +49,13 @@ defineExpose({
 const type = computed(() => {
     return findTypesKey(props.type);
 });
-const styleClass = computed(() => ["r-toast", type.value]);
+const styleClass = computed(() => ["r-alert", type.value]);
 
 const svgHtml = computed(() => iconSvg[type.value]);
 </script>
 
 <template>
-    <transition name="r-toast-fade">
+    <transition name="r-alert-fade">
         <div
             :class="styleClass"
             v-show="state.visible"
@@ -70,7 +70,7 @@ const svgHtml = computed(() => iconSvg[type.value]);
     </transition>
 </template>
 <style scoped>
-.r-toast {
+.r-alert {
     position: fixed;
     left: 50%;
     padding: 0 10px;
@@ -113,16 +113,16 @@ const svgHtml = computed(() => iconSvg[type.value]);
     color: #c45656;
 }
 
-.r-toast-fade-enter-active {
+.r-alert-fade-enter-active {
     transition: all 0.3s ease-in;
 }
 
-.r-toast-fade-leave-active {
+.r-alert-fade-leave-active {
     transition: all 0.3s ease-out;
 }
 
-.r-toast-fade-enter-from,
-.r-toast-fade-leave-to {
+.r-alert-fade-enter-from,
+.r-alert-fade-leave-to {
     transform: translateY(-20px);
     opacity: 0;
 }

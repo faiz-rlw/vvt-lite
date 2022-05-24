@@ -9,7 +9,7 @@ export type iconSvg = {
     [name:string] : any
 }
 
-export type toast = {
+export type alert = {
     (value: any): void;
     [name: string]: any;
 };

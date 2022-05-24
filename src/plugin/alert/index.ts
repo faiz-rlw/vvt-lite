@@ -1,24 +1,24 @@
 import * as dto from "./dto";
 import { types } from "./base";
-import toastComponent from "./toast.vue";
+import alertComponent from "./alert.vue";
 import { App, createApp, Ref, ref } from "vue";
 
 let zIndex: number = 1000;
-const toast: dto.toast = (options: dto.options | string) => {
+const alert: dto.alert = (options: dto.options | string) => {
     let optionsData = getOptions(options);
     let data = {
         ...(optionsData as dto.options),
         zIndex: zIndex++,
     };
-    const toastApp = createApp(toastComponent, data);
+    const toastApp = createApp(alertComponent, data);
     showToast(toastApp, (optionsData as dto.options).duration || 3000);
 };
 
 Object.values(types).forEach((item) => {
-    toast[item] = (options: dto.options) => {
+    alert[item] = (options: dto.options) => {
         let optionsData = getOptions(options);
         (optionsData as dto.options).type = item;
-        return toast(optionsData);
+        return alert(optionsData);
     };
 });
 
@@ -66,4 +66,4 @@ function getOptions(val: unknown) {
     }
 }
 
-export default toast;
+export default alert;
