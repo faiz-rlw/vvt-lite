@@ -65,7 +65,7 @@ service.interceptors.response.use(
             res.request.responseType === "blob" ||
             res.request.responseType === "arraybuffer"
         ) {
-            return res;
+            return Promise.resolve(res);
         }
         if (code === 200) {
             return Promise.resolve(res);
