@@ -23,7 +23,7 @@ git clone https://gitee.com/yysr_rlw/vvt-lite.git
 -   axios 封装请求
 -   pinia
 -   VueUse 支持
--   Windi CSS
+-   Unocss
 -   pnpm 包管理器
 -   页面跳转进度条
 -   tsx 支持
@@ -212,13 +212,14 @@ VueUse 是一个基于 Composition API 的实用函数集合。
 import { fetchEndpoint } from "~/utils/request";
 
 export default {
-    fetchEndpoint({
-        reqUrl: "/login",
-        data,
-        contentType: 'JSON',
-        type: 'POST',
-        isHaveToken: false
-    }),
+    login: (data: object) =>
+        fetchEndpoint({
+            reqUrl: "/login",
+            data,
+            contentType: 'JSON',
+            type: 'POST',
+            isHaveToken: false
+        }),
 };
 ```
 
@@ -252,7 +253,7 @@ UnoCSS 是一个引擎，而非一款框架，因为它并未提供核心工具�
   ...
 ```
 
-原地址： 👉 [Windi CSS](https://github.com/unocss/unocss)
+原地址： 👉 [Unocss](https://github.com/unocss/unocss)
 
 <br />
 
