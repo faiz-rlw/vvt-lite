@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { types, findTypesKey, iconSvg } from "./base";
-
 let timer: NodeJS.Timeout;
 const props = defineProps({
     type: {
@@ -50,8 +49,7 @@ const type = computed(() => {
     return findTypesKey(props.type);
 });
 const styleClass = computed(() => ["r-alert", type.value]);
-
-const svgHtml = computed(() => iconSvg[type.value]);
+const svgHtml = computed(() => iconSvg[ type.value as keyof typeof types]);
 </script>
 
 <template>
@@ -64,7 +62,7 @@ const svgHtml = computed(() => iconSvg[type.value]);
                 zIndex: props.zIndex,
             }"
         >
-            <div v-html="svgHtml" style="margin-right: 6px"></div>
+            <div v-html="svgHtml" class="icon_area_style"></div>
             {{ props.message }}
         </div>
     </transition>
@@ -85,6 +83,12 @@ const svgHtml = computed(() => iconSvg[type.value]);
     border-radius: 5px;
     transition: top 0.3 ease-out;
     box-sizing: border-box;
+}
+
+.icon_area_style{
+    margin-right: 6px;
+    display: flex;
+    align-items: center;
 }
 
 .icon-style {
