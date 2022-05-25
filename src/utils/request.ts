@@ -1,4 +1,9 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
+import axios, {
+    AxiosInstance,
+    AxiosPromise,
+    AxiosRequestConfig,
+    AxiosResponse,
+} from "axios";
 
 export const API_HOST =
     process.env.NODE_ENV === "development"
@@ -78,8 +83,9 @@ service.interceptors.response.use(
  * @description: HTTP内容类型
  */
 const contentTypes: { [name: string]: any } = {
-    form: "application/x-www-form-urlencoded; charset=utf-8",
-    json: "application/json; charset=utf-8",
+    FORM: "application/x-www-form-urlencoded; charset=utf-8",
+    JSON: "application/JSON; charset=utf-8",
+    FORMDATA: "multipart/form-data",
 };
 
 const reqTypes: Array<string> = ["POST", "GET", "DELETE", "PUT"];
@@ -97,7 +103,7 @@ interface dataConfig {
 type fetchOptionsDto = {
     reqUrl: string; // 请求地址
     data: dataConfig; // 请求数据
-    contentType?: string; // HTTP内容类型; 默认json
+    contentType?: string; // HTTP内容类型; 默认JSON
     type?: string; // 请求方式; 默认POST
     isHaveToken?: boolean; // 是否需要在请求头加token; 默认加token(true)
 };
@@ -112,11 +118,11 @@ type fetchOptionsDto = {
  * isHaveToken: 是否需要在请求头加token |
  * @returns axios
  */
-export function fetchEndpoint(options: fetchOptionsDto) {
+export function fetchEndpoint(options: fetchOptionsDto): AxiosPromise<any> {
     const {
         reqUrl,
         data,
-        contentType = "json",
+        contentType = "JSON",
         type = "POST",
         isHaveToken = true,
     } = options;
@@ -128,7 +134,7 @@ export function fetchEndpoint(options: fetchOptionsDto) {
 
     reqHeaderOtherConfig.isHaveToken = isHaveToken;
     reqHeaderOtherConfig.requestContentType = setContentType(
-        contentType.toLowerCase()
+        contentType.toUpperCase()
     );
 
     let reqData: dataConfig = {
@@ -140,7 +146,7 @@ export function fetchEndpoint(options: fetchOptionsDto) {
         params: urlArr.length > 1 ? {} : data,
     };
 
-    delete reqData[contentType === "json" ? "params" : "data"];
+    delete reqData[contentType === "JSON" ? "params" : "data"];
     return service({
         ...reqData,
     });
@@ -175,13 +181,13 @@ export function tansParams(params: any): string {
     return result;
 }
 
-export async function downloadFile(options: fetchOptionsDto) {
+export async function downloadFile(options: fetchOptionsDto): Promise<void> {
     const res = await fetchEndpoint(options);
     const { fileName = new Date().getTime() } = options.data;
     download(res.data, fileName);
 }
 
-function download(content: any, fileName: string) {
+function download(content: any, fileName: string): void {
     let blob = new Blob([content]);
     let url = window.URL.createObjectURL(blob);
     let dom = document.createElement("a");
