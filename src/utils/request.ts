@@ -115,7 +115,7 @@ type fetchOptionsDto = {
  * data : 请求数据 |
  * contentType : HTTP内容类型 |
  * type : 请求方式 |
- * isHaveToken: 是否需要在请求头加token |
+ * isHaveToken: 是否需要在请求头加token 
  * @returns axios
  */
 export function fetchEndpoint(options: fetchOptionsDto): AxiosPromise<any> {

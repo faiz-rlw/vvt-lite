@@ -201,16 +201,24 @@ VueUse 是一个基于 Composition API 的实用函数集合。
 ```typescript
 /**
  * @description: 封装请求
- * @param {string} reqUrl 请求地址 若后面加'reqUrl:id'实际请求为'reqUrl/id'的形式
- * @param {object} data 请求数据(object)
- * @param {boolean} contentType true: json格式  false: form格式
- * @param {Method} type 请求方式
- * @return {AxiosInstance}
+ * @param { fetchOptionsDto } options
+ * reqUrl : 请求地址
+ * data : 请求数据
+ * contentType : HTTP内容类型; 默认JSON类型('JSON'|'FORM'|'FORMDATA')
+ * type : 请求方式 ; 默认POST('POST'|'GET'|'PUT'|'DELETE')
+ * isHaveToken: 是否需要在请求头加token; 默认加token(true)
  */
+
 import { fetchEndpoint } from "~/utils/request";
 
 export default {
-    login: (data: object) => fetchEndpoint("/login:id", data),
+    fetchEndpoint({
+        reqUrl: "/login",
+        data,
+        contentType: 'JSON',
+        type: 'POST',
+        isHaveToken: false
+    }),
 };
 ```
 
@@ -228,23 +236,23 @@ index.vue
 
 <br />
 
-### [7. Windi CSS 支持](https://windicss.org/guide/)
+### [7. Unocss 支持](https://github.com/unocss/unocss)
 
-原子化 CSS
+原子化 CSS 是一种 CSS 的架构方式，它倾向于小巧且用途单一的 class，并且会以视觉效果进行命名。
 
-Windi CSS 是从零开始编写的 Tailwind CSS 的替代方案。它的零依赖，也不要求用户安装 PostCSS 和 Autoprefixer。更为重要的是，它支持 按需生成。Windi CSS 不会一次生成所有的 CSS，而是只会生成你在代码中实际使用到的原子化 CSS。
+UnoCSS 是一个引擎，而非一款框架，因为它并未提供核心工具类，所有功能可以通过预设和内联配置提供。
 
 实际用法：
 
 直接在 dom 元素的 class 写上表达式
 
 ```css
-  <div class="bg-blue-200 p-10px text-18px m-15px">Windi CSS</div>
-  <div class="bg-hex-F2F2F2">Windi CSS</div>
+  <div class="bg-blue-200 p-10px text-18px m-15px">Unocss</div>
+  <div class="bg-hex-F2F2F2">Unocss</div>
   ...
 ```
 
-原地址： 👉 [Windi CSS](https://windicss.org/guide/)
+原地址： 👉 [Windi CSS](https://github.com/unocss/unocss)
 
 <br />
 
