@@ -22,15 +22,15 @@ Object.values(types).forEach((item) => {
     };
 });
 
-let toastArr: Ref<Array<dto.toastArr>> = ref([]);
+let alertArr: Ref<Array<dto.alertArr>> = ref([]);
 function showToast(app: App<DocumentFragment | Element>, duration: number) {
     const tFrag = document.createDocumentFragment();
     const vm: any = app.mount(tFrag);
     document.body.appendChild(tFrag);
-    toastArr.value.push(vm);
+    alertArr.value.push(vm);
     setVmTop(vm);
     vm.setVisible(true);
-    watch(toastArr, () => setVmTop(vm));
+    watch(alertArr, () => setVmTop(vm));
     hideToast(app, vm, duration);
 }
 
@@ -44,14 +44,14 @@ function hideToast(
             app.unmount();
             clearTimeout(vm.timer);
             vm.timer = null;
-            toastArr.value = toastArr.value.filter((item) => item !== vm);
+            alertArr.value = alertArr.value.filter((item) => item !== vm);
         });
     }, duration);
 }
 
 function setVmTop(vm: any) {
     const { height, margin, setTop } = vm;
-    const findCurrenIndex = toastArr.value.findIndex((item) => item === vm);
+    const findCurrenIndex = alertArr.value.findIndex((item) => item === vm);
     let top = findCurrenIndex * (height + margin);
     setTop(top);
 }

@@ -1,11 +1,4 @@
-<script setup lang="ts">
-import http from "~/api";
-onMounted(() => {
-    http.login({
-        id: 21,
-    });
-});
-</script>
+<script setup lang="ts"></script>
 
 <template></template>
 

@@ -5,10 +5,6 @@ export type types = {
     ERROR: string;
 };
 
-export type iconSvg = {
-    [name:string] : any
-}
-
 export type alert = {
     (value: any): void;
     [name: string]: any;
@@ -20,7 +16,7 @@ export type options = {
     duration?: number;
 };
 
-export type toastArr = {
+export type alertArr = {
     height: number;
     margin: number;
     setTop: Function
