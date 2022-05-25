@@ -1,6 +1,8 @@
 <script setup lang="ts"></script>
 
-<template></template>
+<template>
+<div class="text-70px">nihao</div>
+</template>
 
 <route lang="yaml">
 { meta: { layout: "default" } }

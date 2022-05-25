@@ -2,10 +2,10 @@ import vue from "@vitejs/plugin-vue";
 import Pages from "vite-plugin-pages";
 import Layouts from "vite-plugin-vue-layouts";
 import ViteRestart from "vite-plugin-restart";
-import WindiCSS from 'vite-plugin-windicss'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from "unplugin-vue-components/vite";
 import vueJsx from '@vitejs/plugin-vue-jsx'
+import Unocss from 'unocss/vite'
 import {
     AntDesignVueResolver,
     VueUseComponentsResolver,
@@ -51,7 +51,7 @@ export default () => {
         // tsx 支持
         vueJsx(),
 
-        // 支持WindiCSS
-        WindiCSS(),
+        // 原子css -unocss
+        Unocss()
     ];
 };
